@@ -48,6 +48,34 @@ class InlqBitmap private constructor(
 }
 
 /**
+ * Factory class for creating BitmapDescriptor / InlqBitmap instances.
+ * Fully compatible with Google Maps Android SDK BitmapDescriptorFactory.
+ */
+object BitmapDescriptorFactory {
+    const val HUE_RED = 0.0f
+    const val HUE_ORANGE = 30.0f
+    const val HUE_YELLOW = 60.0f
+    const val HUE_GREEN = 120.0f
+    const val HUE_CYAN = 180.0f
+    const val HUE_AZURE = 210.0f
+    const val HUE_BLUE = 240.0f
+    const val HUE_VIOLET = 270.0f
+    const val HUE_MAGENTA = 300.0f
+    const val HUE_ROSE = 330.0f
+
+    fun defaultMarker(): InlqBitmap = InlqBitmap.defaultMarker
+    fun defaultMarker(hue: Float): InlqBitmap = InlqBitmap.defaultMarkerWithHue(hue)
+    fun fromAsset(assetPath: String): InlqBitmap = InlqBitmap.fromAsset(assetPath)
+    fun fromBitmap(bitmap: Bitmap): InlqBitmap = InlqBitmap.fromBitmap(bitmap)
+}
+
+/**
+ * Backward-compatible typealias matching Google Maps Android SDK.
+ */
+typealias BitmapDescriptor = InlqBitmap
+
+
+/**
  * Text information window displayed above a marker when tapped.
  * Mirrors InfoWindow from Flutter SDK.
  */

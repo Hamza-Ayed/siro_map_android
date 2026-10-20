@@ -52,14 +52,14 @@ afterEvaluate {
         publications {
             register<MavenPublication>("release") {
                 from(components["release"])
-                groupId = "com.intaleqapp"
-                artifactId = "maps-android"
-                version = "1.0.2"
+                groupId = "com.github.Hamza-Ayed"
+                artifactId = "siro_map_android"
+                version = "1.0.0"
 
                 pom {
-                    name.set("Intaleq Maps Android SDK")
-                    description.set("Commercial Vector & 3D Maps SDK for Android (Kotlin) by Intaleq Platform")
-                    url.set("https://map-saas.intaleqapp.com")
+                    name.set("Siro Maps Android SDK")
+                    description.set("Commercial Vector & 3D Maps SDK for Android (Kotlin) by Siro Platform")
+                    url.set("https://github.com/Hamza-Ayed/siro_map_android")
                     licenses {
                         license {
                             name.set("MIT License")
@@ -74,9 +74,9 @@ afterEvaluate {
                         }
                     }
                     scm {
-                        connection.set("scm:git:git://github.com/Hamza-Ayed/intaleq_maps_android.git")
-                        developerConnection.set("scm:git:ssh://github.com:Hamza-Ayed/intaleq_maps_android.git")
-                        url.set("https://github.com/Hamza-Ayed/intaleq_maps_android")
+                        connection.set("scm:git:git://github.com/Hamza-Ayed/siro_map_android.git")
+                        developerConnection.set("scm:git:ssh://github.com:Hamza-Ayed/siro_map_android.git")
+                        url.set("https://github.com/Hamza-Ayed/siro_map_android")
                     }
                 }
             }

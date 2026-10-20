@@ -45,3 +45,10 @@ object IntaleqMaps {
         }
     }
 }
+
+/**
+ * Primary Siro brand aliases.
+ */
+typealias SiroMap = IntaleqMaps
+typealias SiroMaps = IntaleqMaps
+

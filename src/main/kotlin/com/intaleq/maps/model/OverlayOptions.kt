@@ -18,6 +18,8 @@ class MarkerOptions {
         private set
     var iconHue: Float = 210.0f // Azure Blue default
         private set
+    var icon: InlqBitmap = InlqBitmap.defaultMarker
+        private set
     var isDraggable: Boolean = false
         private set
     var isVisible: Boolean = true
@@ -29,6 +31,12 @@ class MarkerOptions {
     fun title(title: String?): MarkerOptions = apply { this.title = title }
     fun snippet(snippet: String?): MarkerOptions = apply { this.snippet = snippet }
     fun iconHue(hue: Float): MarkerOptions = apply { this.iconHue = hue }
+    fun icon(descriptor: InlqBitmap): MarkerOptions = apply {
+        this.icon = descriptor
+        if (descriptor.type == InlqBitmap.Type.DEFAULT_WITH_HUE) {
+            this.iconHue = descriptor.hue
+        }
+    }
     fun draggable(draggable: Boolean): MarkerOptions = apply { this.isDraggable = draggable }
     fun visible(visible: Boolean): MarkerOptions = apply { this.isVisible = visible }
     fun zIndex(zIndex: Float): MarkerOptions = apply { this.zIndex = zIndex }

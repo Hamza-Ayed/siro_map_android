@@ -59,6 +59,24 @@ class IntaleqMapController {
         return marker
     }
 
+    /**
+     * Adds a marker to this map according to the instructions defined in the options.
+     * Fully compatible with Google Maps Android SDK GoogleMap.addMarker(MarkerOptions).
+     */
+    fun addMarker(options: MarkerOptions): Marker {
+        val id = MarkerId("marker_${System.currentTimeMillis()}_${(0..9999).random()}")
+        val marker = Marker(
+            markerId = id,
+            position = options.position,
+            icon = options.icon,
+            isDraggable = options.isDraggable,
+            isVisible = options.isVisible,
+            zIndex = options.zIndex,
+            infoWindow = InfoWindow(title = options.title, snippet = options.snippet)
+        )
+        return addMarker(marker)
+    }
+
     fun removeMarker(markerId: MarkerId) {
         markers.remove(markerId)
     }
@@ -74,6 +92,24 @@ class IntaleqMapController {
     fun addPolyline(polyline: Polyline): Polyline {
         polylines[polyline.polylineId] = polyline
         return polyline
+    }
+
+    /**
+     * Adds a polyline to this map according to the instructions defined in the options.
+     * Fully compatible with Google Maps Android SDK GoogleMap.addPolyline(PolylineOptions).
+     */
+    fun addPolyline(options: PolylineOptions): Polyline {
+        val id = PolylineId("polyline_${System.currentTimeMillis()}_${(0..9999).random()}")
+        val polyline = Polyline(
+            polylineId = id,
+            points = options.points.toList(),
+            color = options.color,
+            width = options.width,
+            isGeodesic = options.isGeodesic,
+            isVisible = options.isVisible,
+            zIndex = options.zIndex
+        )
+        return addPolyline(polyline)
     }
 
     fun removePolyline(polylineId: PolylineId) {
@@ -93,6 +129,25 @@ class IntaleqMapController {
         return polygon
     }
 
+    /**
+     * Adds a polygon to this map according to the instructions defined in the options.
+     * Fully compatible with Google Maps Android SDK GoogleMap.addPolygon(PolygonOptions).
+     */
+    fun addPolygon(options: PolygonOptions): Polygon {
+        val id = PolygonId("polygon_${System.currentTimeMillis()}_${(0..9999).random()}")
+        val polygon = Polygon(
+            polygonId = id,
+            points = options.points.toList(),
+            holes = options.holes.toList(),
+            strokeColor = options.strokeColor,
+            strokeWidth = options.strokeWidth,
+            fillColor = options.fillColor,
+            isVisible = options.isVisible,
+            zIndex = options.zIndex
+        )
+        return addPolygon(polygon)
+    }
+
     fun removePolygon(polygonId: PolygonId) {
         polygons.remove(polygonId)
     }
@@ -108,6 +163,25 @@ class IntaleqMapController {
     fun addCircle(circle: Circle): Circle {
         circles[circle.circleId] = circle
         return circle
+    }
+
+    /**
+     * Adds a circle to this map according to the instructions defined in the options.
+     * Fully compatible with Google Maps Android SDK GoogleMap.addCircle(CircleOptions).
+     */
+    fun addCircle(options: CircleOptions): Circle {
+        val id = CircleId("circle_${System.currentTimeMillis()}_${(0..9999).random()}")
+        val circle = Circle(
+            circleId = id,
+            center = options.center,
+            radiusMeters = options.radiusMeters,
+            strokeColor = options.strokeColor,
+            strokeWidth = options.strokeWidth,
+            fillColor = options.fillColor,
+            isVisible = options.isVisible,
+            zIndex = options.zIndex
+        )
+        return addCircle(circle)
     }
 
     fun removeCircle(circleId: CircleId) {
@@ -130,3 +204,15 @@ class IntaleqMapController {
         clearCircles()
     }
 }
+
+/**
+ * Primary Siro brand controller alias.
+ */
+typealias SiroMapController = IntaleqMapController
+
+/**
+ * Backward compatibility typealias matching Google Maps Android SDK.
+ */
+typealias GoogleMap = IntaleqMapController
+
+

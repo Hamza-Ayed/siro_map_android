@@ -298,3 +298,15 @@ class IntaleqMapView @JvmOverloads constructor(
         webView.destroy()
     }
 }
+
+/**
+ * Primary Siro brand view alias.
+ */
+typealias SiroMapView = IntaleqMapView
+
+/**
+ * Backward compatibility typealias matching Google Maps Android SDK.
+ */
+typealias MapView = IntaleqMapView
+
+

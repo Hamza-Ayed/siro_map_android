@@ -1,12 +1,12 @@
-# Intaleq Maps SDK for Android (Kotlin)
-### خريطة انطلق لنظام أندرويد (كوتلن)
+# Siro Maps SDK for Android (Kotlin)
+### خريطة سيرو لنظام أندرويد (كوتلن)
 
-[![JitPack](https://jitpack.io/v/Hamza-Ayed/intaleq_maps_android.svg)](https://jitpack.io/#Hamza-Ayed/intaleq_maps_android)
+[![JitPack](https://jitpack.io/v/Hamza-Ayed/siro_map_android.svg)](https://jitpack.io/#Hamza-Ayed/siro_map_android)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Kotlin](https://img.shields.io/badge/Kotlin-1.9.23-orange.svg)](https://kotlinlang.org)
 [![Android](https://img.shields.io/badge/Android-SDK%2021%2B-green.svg)](https://developer.android.com)
 
-High-performance commercial map SDK for Android offering high-resolution 2D vector maps, 3D terrain elevation mesh, 3D architectural extrusions, routing, forward/reverse geocoding in Arabic and English.
+High-performance commercial sovereign map SDK for Android offering high-resolution 2D vector maps, 3D terrain elevation mesh, 3D architectural extrusions, routing, forward/reverse geocoding in Arabic and English. Fully compatible with Google Maps Android SDK conventions with backward compatibility for `IntaleqMaps`.
 
 ---
 
@@ -30,7 +30,7 @@ In your app module `build.gradle.kts`:
 
 ```kotlin
 dependencies {
-    implementation("com.github.Hamza-Ayed:intaleq_maps_android:v1.0.2")
+    implementation("com.github.Hamza-Ayed:siro_map_android:v1.0.0")
 }
 ```
 
@@ -41,14 +41,14 @@ dependencies {
 ### 1. Initialize SDK in Application or MainActivity
 
 ```kotlin
-import com.intaleq.maps.IntaleqMaps
+import com.intaleq.maps.SiroMaps
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Initialize Intaleq Maps with your API key
-        IntaleqMaps.initialize(
+        // Initialize Siro Maps with your API key
+        SiroMaps.initialize(
             context = this,
             apiKey = "YOUR_API_KEY",
             baseUrl = "https://map-saas.intaleqapp.com"
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 ### 2. Add Map View to Layout XML
 
 ```xml
-<com.intaleq.maps.view.IntaleqMapView
+<com.intaleq.maps.view.SiroMapView
     android:id="@+id/mapView"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 ### 3. Control Map and 3D Mode
 
 ```kotlin
-val mapView = findViewById<IntaleqMapView>(R.id.mapView)
+val mapView = findViewById<SiroMapView>(R.id.mapView)
 
 mapView.getMapAsync { controller ->
     // Toggle 3D Terrain elevation and 65° pitch
@@ -88,7 +88,7 @@ mapView.getMapAsync { controller ->
         bearing = -35.0f
     )
 
-    // Add marker
+    // Add marker using Google Maps SDK conventions
     mapView.addMarker("pin1", LatLng(31.9539, 35.9106), "وسط البلد عمان")
 }
 ```
