@@ -29,20 +29,6 @@ object SiroMaps {
         this.apiKey = apiKey
         this.baseUrl = baseUrl.trimEnd('/')
         this.isInitialized = true
-
-        try {
-            val deviceId = try {
-                android.provider.Settings.Secure.getString(
-                    context.contentResolver,
-                    android.provider.Settings.Secure.ANDROID_ID
-                ) ?: UUID.randomUUID().toString()
-            } catch (t: Throwable) {
-                UUID.randomUUID().toString()
-            }
-            SiroTelemetryService.instance.startTracking(deviceId)
-        } catch (t: Throwable) {
-            // Fail silently
-        }
     }
 }
 
