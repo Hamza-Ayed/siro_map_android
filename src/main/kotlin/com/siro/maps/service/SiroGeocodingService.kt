@@ -1,10 +1,10 @@
 /**
- * وظيفة الملف: خدمة العميل لتنفيذ عمليات IntaleqGeocodingService والاتصال بواجهات المنصة عند الحاجة.
+ * وظيفة الملف: خدمة العميل لتنفيذ عمليات SiroGeocodingService والاتصال بواجهات المنصة عند الحاجة.
  */
-package com.intaleq.maps.service
+package com.siro.maps.service
 
-import com.intaleq.maps.IntaleqMaps
-import com.intaleq.maps.model.LatLng
+import com.siro.maps.SiroMaps
+import com.siro.maps.model.LatLng
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -28,9 +28,9 @@ data class GeocodingPlace(
 )
 
 /**
- * Commercial Geocoding & Reverse Geocoding Service calling Intaleq SaaS API.
+ * Commercial Geocoding & Reverse Geocoding Service calling Siro SaaS API.
  */
-class IntaleqGeocodingService {
+class SiroGeocodingService {
 
     /**
      * Search for places, addresses, and landmarks by query string.
@@ -42,7 +42,7 @@ class IntaleqGeocodingService {
     ): List<GeocodingPlace> = withContext(Dispatchers.IO) {
         try {
             val encodedQuery = URLEncoder.encode(query, "UTF-8")
-            var urlString = "${IntaleqMaps.baseUrl}/api/geocoding/search?q=$encodedQuery&limit=$limit"
+            var urlString = "${SiroMaps.baseUrl}/api/geocoding/search?q=$encodedQuery&limit=$limit"
             if (proximity != null) {
                 urlString += "&lat=${proximity.latitude}&lng=${proximity.longitude}"
             }
@@ -52,7 +52,7 @@ class IntaleqGeocodingService {
                 requestMethod = "GET"
                 connectTimeout = 8000
                 readTimeout = 8000
-                setRequestProperty("x-api-key", IntaleqMaps.apiKey)
+                setRequestProperty("x-api-key", SiroMaps.apiKey)
                 setRequestProperty("Accept", "application/json")
             }
 
@@ -71,13 +71,13 @@ class IntaleqGeocodingService {
      */
     suspend fun reverseGeocode(position: LatLng): GeocodingPlace? = withContext(Dispatchers.IO) {
         try {
-            val urlString = "${IntaleqMaps.baseUrl}/api/geocoding/reverse?lat=${position.latitude}&lng=${position.longitude}"
+            val urlString = "${SiroMaps.baseUrl}/api/geocoding/reverse?lat=${position.latitude}&lng=${position.longitude}"
             val url = URL(urlString)
             val conn = (url.openConnection() as HttpURLConnection).apply {
                 requestMethod = "GET"
                 connectTimeout = 8000
                 readTimeout = 8000
-                setRequestProperty("x-api-key", IntaleqMaps.apiKey)
+                setRequestProperty("x-api-key", SiroMaps.apiKey)
                 setRequestProperty("Accept", "application/json")
             }
 

@@ -1,9 +1,9 @@
 /**
- * وظيفة الملف: دعم وظيفة IntaleqOfflineService عند العمل دون اتصال.
+ * وظيفة الملف: دعم وظيفة SiroOfflineService عند العمل دون اتصال.
  */
-package com.intaleq.maps.offline
+package com.siro.maps.offline
 
-import com.intaleq.maps.model.LatLngBounds
+import com.siro.maps.model.LatLngBounds
 
 data class OfflineRegionDefinition(
     val bounds: LatLngBounds,
@@ -21,10 +21,10 @@ data class OfflineRegion(
 )
 
 /**
- * Service for managing offline vector map tile packages in Intaleq Native Android SDK.
+ * Service for managing offline vector map tile packages in Siro Native Android SDK.
  * Mirrors OfflineService from Flutter SDK.
  */
-class IntaleqOfflineService {
+class SiroOfflineService {
 
     private val regions = mutableMapOf<Long, OfflineRegion>()
 

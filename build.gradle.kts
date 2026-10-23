@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.intaleq.maps"
+    namespace = "com.siro.maps"
     compileSdk = 34
 
     defaultConfig {

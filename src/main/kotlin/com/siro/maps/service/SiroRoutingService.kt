@@ -1,10 +1,10 @@
 /**
- * وظيفة الملف: خدمة العميل لتنفيذ عمليات IntaleqRoutingService والاتصال بواجهات المنصة عند الحاجة.
+ * وظيفة الملف: خدمة العميل لتنفيذ عمليات SiroRoutingService والاتصال بواجهات المنصة عند الحاجة.
  */
-package com.intaleq.maps.service
+package com.siro.maps.service
 
-import com.intaleq.maps.IntaleqMaps
-import com.intaleq.maps.model.LatLng
+import com.siro.maps.SiroMaps
+import com.siro.maps.model.LatLng
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -33,9 +33,9 @@ data class CommercialRoute(
 )
 
 /**
- * Commercial Routing Service calling Intaleq SaaS Routing Engine.
+ * Commercial Routing Service calling Siro SaaS Routing Engine.
  */
-class IntaleqRoutingService {
+class SiroRoutingService {
 
     suspend fun getRoute(
         origin: LatLng,
@@ -44,7 +44,7 @@ class IntaleqRoutingService {
         locale: String = "ar"
     ): CommercialRoute? = withContext(Dispatchers.IO) {
         try {
-            val urlString = "${IntaleqMaps.baseUrl}/api/maps/route?" +
+            val urlString = "${SiroMaps.baseUrl}/api/maps/route?" +
                     "fromLat=${origin.latitude}&fromLng=${origin.longitude}&" +
                     "toLat=${destination.latitude}&toLng=${destination.longitude}&" +
                     "profile=$profile&steps=true&locale=$locale"
@@ -54,7 +54,7 @@ class IntaleqRoutingService {
                 requestMethod = "GET"
                 connectTimeout = 10000
                 readTimeout = 10000
-                setRequestProperty("x-api-key", IntaleqMaps.apiKey)
+                setRequestProperty("x-api-key", SiroMaps.apiKey)
                 setRequestProperty("Accept", "application/json")
             }
 

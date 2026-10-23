@@ -1,15 +1,15 @@
 /**
- * وظيفة الملف: تعريف نموذج البيانات والحقول الخاصة بـ InlqBitmap.
+ * وظيفة الملف: تعريف نموذج البيانات والحقول الخاصة بـ SiroBitmap.
  */
-package com.intaleq.maps.model
+package com.siro.maps.model
 
 import android.graphics.Bitmap
 
 /**
  * Defines a bitmap image used for rendering custom markers on the map.
- * Mirrors InlqBitmap / BitmapDescriptor from Flutter SDK and Google Maps Android SDK.
+ * Mirrors SiroBitmap / BitmapDescriptor from Flutter SDK and Google Maps Android SDK.
  */
-class InlqBitmap private constructor(
+class SiroBitmap private constructor(
     val type: Type,
     val bitmap: Bitmap? = null,
     val assetPath: String? = null,
@@ -34,21 +34,21 @@ class InlqBitmap private constructor(
         const val HUE_MAGENTA = 300.0f
         const val HUE_ROSE = 330.0f
 
-        val defaultMarker: InlqBitmap = InlqBitmap(Type.DEFAULT)
+        val defaultMarker: SiroBitmap = SiroBitmap(Type.DEFAULT)
 
-        fun defaultMarkerWithHue(hue: Float): InlqBitmap =
-            InlqBitmap(Type.DEFAULT_WITH_HUE, hue = hue)
+        fun defaultMarkerWithHue(hue: Float): SiroBitmap =
+            SiroBitmap(Type.DEFAULT_WITH_HUE, hue = hue)
 
-        fun fromAsset(assetPath: String): InlqBitmap =
-            InlqBitmap(Type.ASSET, assetPath = assetPath)
+        fun fromAsset(assetPath: String): SiroBitmap =
+            SiroBitmap(Type.ASSET, assetPath = assetPath)
 
-        fun fromBitmap(bitmap: Bitmap): InlqBitmap =
-            InlqBitmap(Type.BITMAP, bitmap = bitmap)
+        fun fromBitmap(bitmap: Bitmap): SiroBitmap =
+            SiroBitmap(Type.BITMAP, bitmap = bitmap)
     }
 }
 
 /**
- * Factory class for creating BitmapDescriptor / InlqBitmap instances.
+ * Factory class for creating BitmapDescriptor / SiroBitmap instances.
  * Fully compatible with Google Maps Android SDK BitmapDescriptorFactory.
  */
 object BitmapDescriptorFactory {
@@ -63,16 +63,16 @@ object BitmapDescriptorFactory {
     const val HUE_MAGENTA = 300.0f
     const val HUE_ROSE = 330.0f
 
-    fun defaultMarker(): InlqBitmap = InlqBitmap.defaultMarker
-    fun defaultMarker(hue: Float): InlqBitmap = InlqBitmap.defaultMarkerWithHue(hue)
-    fun fromAsset(assetPath: String): InlqBitmap = InlqBitmap.fromAsset(assetPath)
-    fun fromBitmap(bitmap: Bitmap): InlqBitmap = InlqBitmap.fromBitmap(bitmap)
+    fun defaultMarker(): SiroBitmap = SiroBitmap.defaultMarker
+    fun defaultMarker(hue: Float): SiroBitmap = SiroBitmap.defaultMarkerWithHue(hue)
+    fun fromAsset(assetPath: String): SiroBitmap = SiroBitmap.fromAsset(assetPath)
+    fun fromBitmap(bitmap: Bitmap): SiroBitmap = SiroBitmap.fromBitmap(bitmap)
 }
 
 /**
  * Backward-compatible typealias matching Google Maps Android SDK.
  */
-typealias BitmapDescriptor = InlqBitmap
+typealias BitmapDescriptor = SiroBitmap
 
 
 /**

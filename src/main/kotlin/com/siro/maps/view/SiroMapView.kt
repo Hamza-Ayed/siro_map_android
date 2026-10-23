@@ -1,7 +1,7 @@
 /**
- * وظيفة الملف: واجهة عرض الخريطة IntaleqMapView لنظام Android (Kotlin) تدعم العرض ثنائي وثلاثي الأبعاد (2D & 3D).
+ * وظيفة الملف: واجهة عرض الخريطة SiroMapView لنظام Android (Kotlin) تدعم العرض ثنائي وثلاثي الأبعاد (2D & 3D).
  */
-package com.intaleq.maps.view
+package com.siro.maps.view
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -13,33 +13,33 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.FrameLayout
-import com.intaleq.maps.IntaleqMapController
-import com.intaleq.maps.IntaleqMaps
-import com.intaleq.maps.camera.CameraPosition
-import com.intaleq.maps.model.LatLng
-import com.intaleq.maps.styles.IntaleqMapType
-import com.intaleq.maps.styles.IntaleqStyles
+import com.siro.maps.SiroMapController
+import com.siro.maps.SiroMaps
+import com.siro.maps.camera.CameraPosition
+import com.siro.maps.model.LatLng
+import com.siro.maps.styles.SiroMapType
+import com.siro.maps.styles.SiroStyles
 import org.json.JSONObject
 
 interface OnMapReadyCallback {
-    fun onMapReady(controller: IntaleqMapController)
+    fun onMapReady(controller: SiroMapController)
 }
 
 /**
- * High-performance Android Map View for Intaleq Maps.
+ * High-performance Android Map View for Siro Maps.
  * Supports 2D vector tiles, 3D terrain elevation mesh, 3D building extrusions, and camera pitch.
  * Compatible with Google Maps SDK MapView API conventions.
  */
-class IntaleqMapView @JvmOverloads constructor(
+class SiroMapView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    val controller: IntaleqMapController = IntaleqMapController()
+    val controller: SiroMapController = SiroMapController()
     private val webView: WebView = WebView(context)
     private var isMapLoaded = false
-    private val pendingCallbacks = mutableListOf<(IntaleqMapController) -> Unit>()
+    private val pendingCallbacks = mutableListOf<(SiroMapController) -> Unit>()
 
     var is3DEnabled: Boolean = false
         private set
@@ -66,7 +66,7 @@ class IntaleqMapView @JvmOverloads constructor(
 
         webView.setBackgroundColor(Color.TRANSPARENT)
         webView.webChromeClient = WebChromeClient()
-        webView.addJavascriptInterface(MapBridgeInterface(), "intaleqBridge")
+        webView.addJavascriptInterface(MapBridgeInterface(), "siroBridge")
 
         webView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
@@ -83,7 +83,7 @@ class IntaleqMapView @JvmOverloads constructor(
         val initialZoom = controller.cameraPosition.zoom
         val initialPitch = controller.cameraPosition.tilt
         val initialBearing = controller.cameraPosition.bearing
-        val styleUrl = IntaleqStyles.TERRAIN
+        val styleUrl = SiroStyles.TERRAIN
 
         val html = """
             <!DOCTYPE html>
@@ -91,7 +91,7 @@ class IntaleqMapView @JvmOverloads constructor(
             <head>
                 <meta charset="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-                <title>Intaleq Maps Android</title>
+                <title>Siro Maps Android</title>
                 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
                 <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
                 <style>
@@ -127,21 +127,21 @@ class IntaleqMapView @JvmOverloads constructor(
                     var activeMarkers = {};
 
                     map.on('load', function() {
-                        if (window.intaleqBridge) {
-                            window.intaleqBridge.onMapReady();
+                        if (window.siroBridge) {
+                            window.siroBridge.onMapReady();
                         }
                     });
 
                     map.on('click', function(e) {
-                        if (window.intaleqBridge) {
-                            window.intaleqBridge.onMapClick(e.lngLat.lat, e.lngLat.lng);
+                        if (window.siroBridge) {
+                            window.siroBridge.onMapClick(e.lngLat.lat, e.lngLat.lng);
                         }
                     });
 
                     map.on('moveend', function() {
                         var c = map.getCenter();
-                        if (window.intaleqBridge) {
-                            window.intaleqBridge.onCameraMove(c.lat, c.lng, map.getZoom(), map.getPitch(), map.getBearing());
+                        if (window.siroBridge) {
+                            window.siroBridge.onCameraMove(c.lat, c.lng, map.getZoom(), map.getPitch(), map.getBearing());
                         }
                     });
 
@@ -192,7 +192,7 @@ class IntaleqMapView @JvmOverloads constructor(
             </html>
         """.trimIndent()
 
-        webView.loadDataWithBaseURL(IntaleqMaps.baseUrl, html, "text/html", "UTF-8", null)
+        webView.loadDataWithBaseURL(SiroMaps.baseUrl, html, "text/html", "UTF-8", null)
     }
 
     private inner class MapBridgeInterface {
@@ -219,7 +219,7 @@ class IntaleqMapView @JvmOverloads constructor(
         fun onCameraMove(lat: Double, lng: Double, zoom: Double, pitch: Double, bearing: Double) {
             post {
                 try {
-                    com.intaleq.maps.service.IntaleqTelemetryService.instance.recordPosition(
+                    com.siro.maps.service.SiroTelemetryService.instance.recordPosition(
                         latitude = lat,
                         longitude = lng,
                         speedKmH = 0.0,
@@ -241,7 +241,7 @@ class IntaleqMapView @JvmOverloads constructor(
 
     // ── Public API ──────────────────────────────────────────────────────────
 
-    fun getMapAsync(callback: (IntaleqMapController) -> Unit) {
+    fun getMapAsync(callback: (SiroMapController) -> Unit) {
         if (isMapLoaded) {
             callback(controller)
         } else {
@@ -262,13 +262,13 @@ class IntaleqMapView @JvmOverloads constructor(
         evaluateJs("setMapStyle('$styleUrl');")
     }
 
-    fun setMapType(mapType: IntaleqMapType) {
+    fun setMapType(mapType: SiroMapType) {
         when (mapType) {
-            IntaleqMapType.TERRAIN -> setStyle(IntaleqStyles.TERRAIN)
-            IntaleqMapType.DARK -> setStyle(IntaleqStyles.DARK)
-            IntaleqMapType.SATELLITE -> setStyle(IntaleqStyles.SATELLITE)
-            IntaleqMapType.NORMAL, IntaleqMapType.LIGHT -> setStyle(IntaleqStyles.NORMAL)
-            IntaleqMapType.NONE -> {}
+            SiroMapType.TERRAIN -> setStyle(SiroStyles.TERRAIN)
+            SiroMapType.DARK -> setStyle(SiroStyles.DARK)
+            SiroMapType.SATELLITE -> setStyle(SiroStyles.SATELLITE)
+            SiroMapType.NORMAL, SiroMapType.LIGHT -> setStyle(SiroStyles.NORMAL)
+            SiroMapType.NONE -> {}
         }
     }
 
@@ -300,13 +300,8 @@ class IntaleqMapView @JvmOverloads constructor(
 }
 
 /**
- * Primary Siro brand view alias.
- */
-typealias SiroMapView = IntaleqMapView
-
-/**
  * Backward compatibility typealias matching Google Maps Android SDK.
  */
-typealias MapView = IntaleqMapView
+typealias MapView = SiroMapView
 
 

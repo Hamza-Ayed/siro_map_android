@@ -1,7 +1,7 @@
 /**
  * وظيفة الملف: تعريف نموذج البيانات والحقول الخاصة بـ Geometry.
  */
-package com.intaleq.maps.model
+package com.siro.maps.model
 
 import android.graphics.Color
 
@@ -50,7 +50,7 @@ data class Marker(
     val anchorY: Float = 1.0f,
     val isDraggable: Boolean = false,
     val isFlat: Boolean = false,
-    val icon: InlqBitmap = InlqBitmap.defaultMarker,
+    val icon: SiroBitmap = SiroBitmap.defaultMarker,
     val infoWindow: InfoWindow = InfoWindow.NO_TEXT,
     val rotation: Float = 0.0f,
     val isVisible: Boolean = true,

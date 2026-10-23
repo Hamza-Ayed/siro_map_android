@@ -1,9 +1,9 @@
 /**
- * وظيفة الملف: خدمة العميل لتنفيذ عمليات IntaleqTelemetryService ورفع تتبع المركبات دورياً بالدفعات (Batch Telemetry).
+ * وظيفة الملف: خدمة العميل لتنفيذ عمليات SiroTelemetryService ورفع تتبع المركبات دورياً بالدفعات (Batch Telemetry).
  */
-package com.intaleq.maps.service
+package com.siro.maps.service
 
-import com.intaleq.maps.IntaleqMaps
+import com.siro.maps.SiroMaps
 import kotlinx.coroutines.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -47,10 +47,10 @@ data class TelemetryPoint(
  * 2. Batches and flushes points to MapSaaS backend every 2 minutes (or 40 points).
  * 3. Keeps up to 400 points offline buffer when disconnected.
  */
-class IntaleqTelemetryService private constructor() {
+class SiroTelemetryService private constructor() {
 
     companion object {
-        val instance: IntaleqTelemetryService by lazy { IntaleqTelemetryService() }
+        val instance: SiroTelemetryService by lazy { SiroTelemetryService() }
 
         const val SAMPLING_INTERVAL_SECONDS = 3
         const val DEFAULT_UPLOAD_INTERVAL_SECONDS = 120L // دقيقتان
@@ -178,7 +178,7 @@ class IntaleqTelemetryService private constructor() {
                 put("points", jsonArray)
             }
 
-            val url = URL("${IntaleqMaps.baseUrl}/api/telemetry/batch")
+            val url = URL("${SiroMaps.baseUrl}/api/telemetry/batch")
             val conn = (url.openConnection() as HttpURLConnection).apply {
                 requestMethod = "POST"
                 connectTimeout = 15000
@@ -186,8 +186,8 @@ class IntaleqTelemetryService private constructor() {
                 doOutput = true
                 setRequestProperty("Content-Type", "application/json")
                 setRequestProperty("Accept", "application/json")
-                if (IntaleqMaps.apiKey.isNotEmpty()) {
-                    setRequestProperty("x-api-key", IntaleqMaps.apiKey)
+                if (SiroMaps.apiKey.isNotEmpty()) {
+                    setRequestProperty("x-api-key", SiroMaps.apiKey)
                 }
             }
 
@@ -215,7 +215,7 @@ class IntaleqTelemetryService private constructor() {
      */
     suspend fun sendInstantTelemetry(point: TelemetryPoint): Boolean = withContext(Dispatchers.IO) {
         try {
-            val url = URL("${IntaleqMaps.baseUrl}/api/telemetry")
+            val url = URL("${SiroMaps.baseUrl}/api/telemetry")
             val conn = (url.openConnection() as HttpURLConnection).apply {
                 requestMethod = "POST"
                 connectTimeout = 8000
@@ -223,8 +223,8 @@ class IntaleqTelemetryService private constructor() {
                 doOutput = true
                 setRequestProperty("Content-Type", "application/json")
                 setRequestProperty("Accept", "application/json")
-                if (IntaleqMaps.apiKey.isNotEmpty()) {
-                    setRequestProperty("x-api-key", IntaleqMaps.apiKey)
+                if (SiroMaps.apiKey.isNotEmpty()) {
+                    setRequestProperty("x-api-key", SiroMaps.apiKey)
                 }
             }
 

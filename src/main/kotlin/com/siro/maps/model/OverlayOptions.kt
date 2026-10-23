@@ -1,7 +1,7 @@
 /**
  * وظيفة الملف: تعريف نموذج البيانات والحقول الخاصة بـ OverlayOptions.
  */
-package com.intaleq.maps.model
+package com.siro.maps.model
 
 import android.graphics.Color
 
@@ -18,7 +18,7 @@ class MarkerOptions {
         private set
     var iconHue: Float = 210.0f // Azure Blue default
         private set
-    var icon: InlqBitmap = InlqBitmap.defaultMarker
+    var icon: SiroBitmap = SiroBitmap.defaultMarker
         private set
     var isDraggable: Boolean = false
         private set
@@ -31,9 +31,9 @@ class MarkerOptions {
     fun title(title: String?): MarkerOptions = apply { this.title = title }
     fun snippet(snippet: String?): MarkerOptions = apply { this.snippet = snippet }
     fun iconHue(hue: Float): MarkerOptions = apply { this.iconHue = hue }
-    fun icon(descriptor: InlqBitmap): MarkerOptions = apply {
+    fun icon(descriptor: SiroBitmap): MarkerOptions = apply {
         this.icon = descriptor
-        if (descriptor.type == InlqBitmap.Type.DEFAULT_WITH_HUE) {
+        if (descriptor.type == SiroBitmap.Type.DEFAULT_WITH_HUE) {
             this.iconHue = descriptor.hue
         }
     }

@@ -1,17 +1,17 @@
 /**
- * وظيفة الملف: تنفيذ جزء IntaleqMapController ضمن حزمة العميل أو التطبيق.
+ * وظيفة الملف: تنفيذ جزء SiroMapController ضمن حزمة العميل أو التطبيق.
  */
-package com.intaleq.maps
+package com.siro.maps
 
-import com.intaleq.maps.camera.CameraPosition
-import com.intaleq.maps.camera.CameraUpdate
-import com.intaleq.maps.model.*
+import com.siro.maps.camera.CameraPosition
+import com.siro.maps.camera.CameraUpdate
+import com.siro.maps.model.*
 
 /**
- * Controller for an [IntaleqMapView] instance.
- * Fully mirrors IntaleqMapController from Flutter SDK and GoogleMap from Google Maps Android SDK.
+ * Controller for an [SiroMapView] instance.
+ * Fully mirrors SiroMapController from Flutter SDK and GoogleMap from Google Maps Android SDK.
  */
-class IntaleqMapController {
+class SiroMapController {
 
     private val markers = mutableMapOf<MarkerId, Marker>()
     private val polylines = mutableMapOf<PolylineId, Polyline>()
@@ -206,13 +206,8 @@ class IntaleqMapController {
 }
 
 /**
- * Primary Siro brand controller alias.
- */
-typealias SiroMapController = IntaleqMapController
-
-/**
  * Backward compatibility typealias matching Google Maps Android SDK.
  */
-typealias GoogleMap = IntaleqMapController
+typealias GoogleMap = SiroMapController
 
 

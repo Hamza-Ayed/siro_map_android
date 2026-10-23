@@ -6,7 +6,7 @@
 [![Kotlin](https://img.shields.io/badge/Kotlin-1.9.23-orange.svg)](https://kotlinlang.org)
 [![Android](https://img.shields.io/badge/Android-SDK%2021%2B-green.svg)](https://developer.android.com)
 
-High-performance commercial sovereign map SDK for Android offering high-resolution 2D vector maps, 3D terrain elevation mesh, 3D architectural extrusions, routing, forward/reverse geocoding in Arabic and English. Fully compatible with Google Maps Android SDK conventions with backward compatibility for `IntaleqMaps`.
+High-performance commercial sovereign map SDK for Android offering high-resolution 2D vector maps, 3D terrain elevation mesh, 3D architectural extrusions, routing, forward/reverse geocoding in Arabic and English. Fully compatible with Google Maps Android SDK conventions.
 
 ---
 
@@ -41,7 +41,7 @@ dependencies {
 ### 1. Initialize SDK in Application or MainActivity
 
 ```kotlin
-import com.intaleq.maps.SiroMaps
+import com.siro.maps.SiroMaps
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 ### 2. Add Map View to Layout XML
 
 ```xml
-<com.intaleq.maps.view.SiroMapView
+<com.siro.maps.view.SiroMapView
     android:id="@+id/mapView"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
@@ -78,7 +78,7 @@ mapView.getMapAsync { controller ->
     mapView.set3DMode(true)
 
     // Switch styles (TERRAIN, DARK, SATELLITE, NORMAL)
-    mapView.setMapType(IntaleqMapType.TERRAIN)
+    mapView.setMapType(SiroMapType.TERRAIN)
 
     // Animate camera to Amman
     mapView.animateCamera(
@@ -96,7 +96,7 @@ mapView.getMapAsync { controller ->
 ### 4. Forward & Reverse Geocoding (البحث والاستعلام العكسي)
 
 ```kotlin
-val geocodingService = IntaleqGeocodingService()
+val geocodingService = SiroGeocodingService()
 
 lifecycleScope.launch {
     // 1. Search places
@@ -114,4 +114,4 @@ lifecycleScope.launch {
 ---
 
 ## License
-MIT License. © 2026 Intaleq Platform.
+MIT License. © 2026 Siro Platform.

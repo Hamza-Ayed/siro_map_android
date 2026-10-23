@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "intaleq_maps_android"
+rootProject.name = "siro_map_android"

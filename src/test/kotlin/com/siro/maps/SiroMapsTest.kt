@@ -1,21 +1,21 @@
-package com.intaleq.maps
+package com.siro.maps
 
-import com.intaleq.maps.camera.CameraPosition
-import com.intaleq.maps.camera.CameraUpdateFactory
-import com.intaleq.maps.model.LatLng
-import com.intaleq.maps.service.IntaleqGeocodingService
-import com.intaleq.maps.styles.IntaleqStyles
+import com.siro.maps.camera.CameraPosition
+import com.siro.maps.camera.CameraUpdateFactory
+import com.siro.maps.model.LatLng
+import com.siro.maps.service.SiroGeocodingService
+import com.siro.maps.styles.SiroStyles
 import org.junit.Assert.*
 import org.junit.Test
 
-class IntaleqMapsTest {
+class SiroMapsTest {
 
     @Test
     fun testStylesContainCorrectPaths() {
-        assertTrue(IntaleqStyles.TERRAIN.contains("style-3d-terrain.json"))
-        assertTrue(IntaleqStyles.DARK.contains("style-dark.json"))
-        assertTrue(IntaleqStyles.NORMAL.contains("style.json"))
-        assertTrue(IntaleqStyles.SATELLITE.contains("style-satellite.json"))
+        assertTrue(SiroStyles.TERRAIN.contains("style-3d-terrain.json"))
+        assertTrue(SiroStyles.DARK.contains("style-dark.json"))
+        assertTrue(SiroStyles.NORMAL.contains("style.json"))
+        assertTrue(SiroStyles.SATELLITE.contains("style-satellite.json"))
     }
 
     @Test
@@ -48,7 +48,7 @@ class IntaleqMapsTest {
         ]
         """.trimIndent()
 
-        val places = IntaleqGeocodingService.parsePlaces(jsonArray)
+        val places = SiroGeocodingService.parsePlaces(jsonArray)
         assertEquals(1, places.size)
         val place = places[0]
         assertEquals("places_jordan_72778", place.id)
@@ -81,7 +81,7 @@ class IntaleqMapsTest {
         }
         """.trimIndent()
 
-        val places = IntaleqGeocodingService.parsePlaces(geoJson)
+        val places = SiroGeocodingService.parsePlaces(geoJson)
         assertEquals(1, places.size)
         val place = places[0]
         assertEquals("Petra Treasury", place.name)
@@ -91,7 +91,7 @@ class IntaleqMapsTest {
 
     @Test
     fun testCameraPositionAndController() {
-        val controller = IntaleqMapController()
+        val controller = SiroMapController()
         assertEquals(31.9539, controller.cameraPosition.target.latitude, 0.0001)
 
         val target = LatLng(30.3222, 35.4444)

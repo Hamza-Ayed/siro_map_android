@@ -1,17 +1,17 @@
 /**
- * وظيفة الملف: واجهة الدخول أو نقطة تشغيل حزمة IntaleqMaps.
+ * وظيفة الملف: واجهة الدخول أو نقطة تشغيل حزمة SiroMaps.
  */
-package com.intaleq.maps
+package com.siro.maps
 
 import android.content.Context
-import com.intaleq.maps.service.IntaleqTelemetryService
+import com.siro.maps.service.SiroTelemetryService
 import java.util.UUID
 
 /**
- * Main entry point for Intaleq Commercial Maps SDK for Android (Kotlin).
+ * Main entry point for Siro Commercial Maps SDK for Android (Kotlin).
  * Compatible with Google Maps SDK structure.
  */
-object IntaleqMaps {
+object SiroMaps {
 
     var apiKey: String = ""
         private set
@@ -23,7 +23,7 @@ object IntaleqMaps {
         private set
 
     /**
-     * Initializes the Intaleq Maps SDK with your SaaS API Key.
+     * Initializes the Siro Maps SDK with your SaaS API Key.
      */
     fun initialize(context: Context, apiKey: String, baseUrl: String = "https://map-saas.intaleqapp.com") {
         this.apiKey = apiKey
@@ -39,16 +39,10 @@ object IntaleqMaps {
             } catch (t: Throwable) {
                 UUID.randomUUID().toString()
             }
-            IntaleqTelemetryService.instance.startTracking(deviceId)
+            SiroTelemetryService.instance.startTracking(deviceId)
         } catch (t: Throwable) {
             // Fail silently
         }
     }
 }
-
-/**
- * Primary Siro brand aliases.
- */
-typealias SiroMap = IntaleqMaps
-typealias SiroMaps = IntaleqMaps
 

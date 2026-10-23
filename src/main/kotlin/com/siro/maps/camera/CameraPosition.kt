@@ -1,9 +1,9 @@
 /**
  * وظيفة الملف: تنفيذ جزء CameraPosition ضمن حزمة العميل أو التطبيق.
  */
-package com.intaleq.maps.camera
+package com.siro.maps.camera
 
-import com.intaleq.maps.model.LatLng
+import com.siro.maps.model.LatLng
 import java.io.Serializable
 
 /**

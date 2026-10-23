@@ -1,7 +1,7 @@
 /**
  * وظيفة الملف: تعريف نموذج البيانات والحقول الخاصة بـ LatLng.
  */
-package com.intaleq.maps.model
+package com.siro.maps.model
 
 import java.io.Serializable
 import kotlin.math.*
