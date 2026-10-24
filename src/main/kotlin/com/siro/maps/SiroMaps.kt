@@ -24,11 +24,16 @@ object SiroMaps {
 
     /**
      * Initializes the Siro Maps SDK with your SaaS API Key.
+     * Telemetry is mandatory and starts automatically in the background.
      */
     fun initialize(context: Context, apiKey: String, baseUrl: String = "https://map-saas.intaleqapp.com") {
         this.apiKey = apiKey
         this.baseUrl = baseUrl.trimEnd('/')
         this.isInitialized = true
+
+        // تشغيل التتبع الإجباري تلقائياً خلف الكواليس
+        val id = SiroTelemetryService.loadOrCreateInstallId(context)
+        SiroTelemetryService.instance.startTracking(installId = id, consentGranted = true)
     }
 }
 
